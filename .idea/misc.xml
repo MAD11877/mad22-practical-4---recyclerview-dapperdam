@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/activity_list.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/activity_message_group.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/f1.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/f2.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/user_row.xml" value="0.1" />
+        <entry key="..\:/Users/damie/AndroidStudioProjects/mad22-practical-4---recyclerview-dapperdam/app/src/main/res/layout/user_rowb.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

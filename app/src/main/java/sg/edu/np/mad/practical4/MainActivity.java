@@ -2,73 +2,71 @@ package sg.edu.np.mad.practical4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Intent receivingEnd = getIntent();
-        Integer position = receivingEnd.getIntExtra("genInt",0);
+        Integer position = receivingEnd.getIntExtra("position",0);
         User user = ListActivity.userList.get(position);
 
-        TextView nameText = findViewById(R.id.nameText);
-        TextView descText = findViewById(R.id.descText);
-        nameText.setText(String.format("%s", user.name));
-        descText.setText(String.format("%s", user.description));
-        Button btn = findViewById(R.id.fButton);
-        setF(user,btn);
-            btn.setOnClickListener(new View.OnClickListener() {
+        TextView namet = findViewById(R.id.username);
+        TextView desct = findViewById(R.id.userdesc);
+
+        namet.setText(String.format("%s", user.name));
+        desct.setText(String.format("%s",user.description));
+
+        Button button = findViewById(R.id.followbutton);
+        //User user = initUser();
+        setFollowing(user,button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String toastN;
-                if(user.followed == false){ //if user is not following
-                    user.followed = true;//set to follow
-                    toastN = "Followed";
+                String toasted;
+                if(user.followed == false){
+                    user.followed = true;
+                    toasted = "Followed";
                 }
-                else{//if user is following
-                    user.followed = false; //set to unfollow
-                    toastN = "Unfollowed";
+                else{
+                    user.followed = false;
+                    toasted = "Unfollowed";
                 }
-                setF(user,btn);
-
-                //Toast message
-                Toast tNotif = Toast.makeText(MainActivity.this,toastN,Toast.LENGTH_SHORT);
-                tNotif.show();
+                setFollowing(user,button);
+                Toast toastn = Toast.makeText(MainActivity.this, toasted,Toast.LENGTH_SHORT);
+                toastn.show();
             }
         });
 
-        //event/onclick listener for message button
-        Button messageButton = findViewById(R.id.mButton);
-            messageButton.setOnClickListener(new View.OnClickListener() {
+        Button msgbtn = findViewById(R.id.messagebutton);
+        msgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newAct = new Intent(MainActivity.this,MessageGroup.class);
-                startActivity(newAct);
+                Intent i = new Intent(MainActivity.this, MessageGroup.class);
+                startActivity(i);
             }
         });
 
     }
-
-    //method to initialise user
     public User initUser(){
-        User usr = new User("username","desc",1,false);
-        return usr;
+        User user = new User("Username","Description",1,false);
+        return user;
     }
 
-    //method to set the text based on the condition
-    public void setF(User usr,Button btn){
-        TextView txt = btn;
-        if(usr.followed == false){
+    public void setFollowing(User user, Button button){
+        TextView txt = button;
+        if(user.followed == false){
             txt.setText("Follow");
         }
         else{

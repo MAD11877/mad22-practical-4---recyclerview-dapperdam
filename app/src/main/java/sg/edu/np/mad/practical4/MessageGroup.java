@@ -1,5 +1,7 @@
 package sg.edu.np.mad.practical4;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,33 +13,33 @@ import android.widget.Button;
 import java.security.acl.Group;
 
 public class MessageGroup extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_group);
-        Button grp1button, grp2button;
-        grp1button = findViewById(R.id.grp1button);
-        grp2button = findViewById(R.id.grp2button);
+        Button g1b, g2b;
+        g1b = findViewById(R.id.g1b);
+        g2b = findViewById(R.id.g2b);
 
-        grp1button.setOnClickListener(new View.OnClickListener() {
+        g1b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFrag(new g1());
+                frag(new Group1());
             }
         });
 
-        grp2button.setOnClickListener(new View.OnClickListener() {
+        g2b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFrag(new g2());
+                frag(new Group2());
             }
         });
     }
 
-    public void replaceFrag(Fragment frag){
+    public void frag(Fragment frag){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame,frag);
         ft.commit();
     }
+
 }

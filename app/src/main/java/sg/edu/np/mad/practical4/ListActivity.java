@@ -1,64 +1,70 @@
 package sg.edu.np.mad.practical4;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity{
-    public static ArrayList<User> userList = initRandomUser();
+public class ListActivity extends AppCompatActivity {
+    public static ArrayList<User>  userList = initRandomUser();
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        /*ImageView imgv = findViewById(R.id.listicon);
+        imgv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alert = alert();
+                alert.show();
+            }
+        });*/
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        UserAdapter mAdapter = new UserAdapter(userList);
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(ListActivity.this);
-
-        recyclerView.setLayoutManager(mLayoutManager);
+        UserAdapter madpt = new UserAdapter(userList);
+        LinearLayoutManager mlm = new LinearLayoutManager(ListActivity.this);
+        recyclerView.setLayoutManager(mlm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(madpt);
     }
-    public static AlertDialog createAlert(Integer position, Context context){
+
+    public static AlertDialog alert(Integer position, Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Profile");
         builder.setMessage(userList.get(position).name);
         builder.setCancelable(true);
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        builder.setPositiveButton("VIEW", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+                /*Random rand = new Random();
+                Integer genInt = Math.abs(rand.nextInt());*/
                 Intent act = new Intent(context,MainActivity.class);
-                act.putExtra("userPosition", position);
+                act.putExtra("position",position);
                 context.startActivity(act);
             }
         });
-        AlertDialog alert = builder.create();
-        return alert;
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //cancel action
+            }
+        });
+        AlertDialog ad = builder.create();
+        return ad;
     }
+
     public static ArrayList<User> initRandomUser(){
         ArrayList<User> userList = new ArrayList<User>();
 
@@ -69,24 +75,21 @@ public class ListActivity extends AppCompatActivity{
             Integer randId;
             Boolean randFollowed = rand.nextBoolean();
 
-            //ensure id does not clash
             while (true){
-                Boolean repeatId = false;//set repeating id conition to false
+                Boolean repeatId = false;
                 randId = Math.abs(rand.nextInt());
                 for(User i : userList){
                     if(i.id == randId){
-                        repeatId = true;//set condition to false if there is repeating id found
+                        repeatId = true;
                     }
                 }
                 if(repeatId == false){
-                    break;//break the while loop if there is no repeats
+                    break;
                 }
             }
-
-            User usr = new User(randName,randDesc,randId,randFollowed);//create new user
+            User usr = new User(randName,randDesc,randId,randFollowed);
             userList.add(usr);
         }
         return userList;
     }
 }
-
